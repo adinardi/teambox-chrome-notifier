@@ -32,11 +32,26 @@ TBNotify.fetchCallback = function() {
  * Update / notify with result.
  */
 TBNotify.processActivityResponse = function(data) {
-    if (data.objects[0] && data.objects[0].id != TBNotify.lastSeenObjectId) {
-        chrome.browserAction.setBadgeText({text: "1"});
+    if (data.objects[0] && data.objects[0].id != TBNotify.lastEncounteredObjectId) {
+        var itemsBeforeLast = 0;
+        var objects = data.objects;
+
+        for (var iter = 0, item; item = objects[iter]; iter++) {
+            if (item.id == TBNotify.lastSeenObjectId) {
+                break;
+            }
+
+            itemsBeforeLast++;
+        }
+
+        if (itemsBeforeLast) {
+            chrome.browserAction.setBadgeText({text: "" + itemsBeforeLast});
+        } else {
+            chrome.browserAction.setBadgeText({text: ""});
+        }
 
         // We don't want to re-notify for the same update.
-        TBNotify.lastSeenObjectId = data.objects[0].id;
+        TBNotify.lastEncounteredObjectId = data.objects[0].id;
     }
 };
 
@@ -45,7 +60,7 @@ TBNotify.processActivityResponse = function(data) {
  */
 TBNotify.handleButtonClicked = function() {
     chrome.browserAction.setBadgeText({"text": ""});
-    localStorage['lastSeenObjectId'] = TBNotify.lastSeenObjectId;
+    localStorage['lastSeenObjectId'] = TBNotify.lastSeenObjectId = TBNotify.lastEncounteredObjectId;
 };
 
 chrome.browserAction.onClicked.addListener(TBNotify.handleButtonClicked);
