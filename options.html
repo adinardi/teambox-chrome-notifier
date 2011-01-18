@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Teambox Notifier Options</title>
+    </head>
+    <body onload="load()">
+        <script>
+            function save() {
+                localStorage['username'] = document.getElementById('username').value;
+                localStorage['password'] = document.getElementById('password').value;
+
+                alert('Saved');
+            }
+
+            function load() {
+                document.getElementById('username').value = localStorage['username'];
+                document.getElementById('password').value = localStorage['password'];
+            }
+        </script>
+
+        Username: <input type="text" id="username" />
+        <br>
+        Password: <input type="password" id="password" />
+        <br>
+        <button onclick="save()">Save</button>
+    </body>
+</html>
