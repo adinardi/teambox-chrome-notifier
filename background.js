@@ -106,4 +106,4 @@ chrome.browserAction.onClicked.addListener(TBNotify.handleButtonClicked);
 // Initial load fetch.
 TBNotify.fetchActivity();
 // Update every 30 seconds.
-window.setInterval(TBNotify.fetchActivity, 30000);
+window.setInterval(TBNotify.fetchActivity, 60000);
