@@ -35,10 +35,48 @@ TBNotify.processActivityResponse = function(data) {
     if (data.objects[0] && data.objects[0].id != TBNotify.lastEncounteredObjectId) {
         var itemsBeforeLast = 0;
         var objects = data.objects;
+        var encountered = false;
+
+        // We get a big array of items for reference, index them on their IDs
+        var referenceItems = {};
+        for (var iter = 0, item; item = data.references[iter]; iter++) {
+            referenceItems[item.id] = item;
+        }
 
         for (var iter = 0, item; item = objects[iter]; iter++) {
             if (item.id == TBNotify.lastSeenObjectId) {
                 break;
+            }
+
+            if (TBNotify.lastEncounteredObjectId == item.id) {
+                encountered = true;
+            }
+
+            // If we are still before the last encountered / notified item,
+            // then let's notify!
+            if (!encountered) {
+                var refItem = referenceItems[item.target_id];
+                var user = referenceItems[item.user_id];
+
+                // We found the reference item, hooray!
+                if (refItem) {
+                    // Meh, let's scope this so I can just use notification for all
+                    // of them and they can just quickly reference back to it.
+                    // I hate closures. This is nasty.
+                    (function() {
+                        var notification = webkitNotifications.createNotification(
+                            user.avatar_url,
+                            refItem.type,
+                            refItem.body || refItem.name
+                        );
+
+                        notification.show();
+
+                        setTimeout(function() {
+                            notification.cancel();
+                        }, 10000);
+                    })();
+                }
             }
 
             itemsBeforeLast++;
