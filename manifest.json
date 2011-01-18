@@ -1,9 +1,10 @@
 {
     "name": "Teambox Notifier",
     "version": "0.1",
-    "description": "Teambox Notifier",
+    "description": "Teambox Notifier by Angelo DiNardi",
     "browser_action": {
-        "default_icon": "icon.png"
+        "default_icon": "icon.png",
+        "default_title": "Teambox Notifier"
     },
     "permissions": [
         "http://teambox.com/",

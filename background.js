@@ -13,7 +13,18 @@ TBNotify.fetchActivity = function() {
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
-            // TODO: Handle not being logged in.
+            if (xhr.responseText.indexOf('<!DOCTYPE html>') > -1) {
+                // Not logged in apparently.
+                chrome.browserAction.setIcon({path: 'icon_notloggedin.png'});
+                chrome.browserAction.setTitle({title: 'Error: Not logged in to teambox.com'});
+                // Die.
+                return;
+            }
+
+            // If we're authenticated, reset to default settings.
+            chrome.browserAction.setIcon({path: 'icon.png'});
+            chrome.browserAction.setTitle({title: 'Teambox Notifier'});
+
             var response = JSON.parse(xhr.responseText);
 
             TBNotify.processActivityResponse(response);
