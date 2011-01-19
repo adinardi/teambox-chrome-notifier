@@ -71,6 +71,23 @@ TBNotify.processActivityResponse = function(data) {
 
                 // We found the reference item, hooray!
                 if (refItem) {
+
+                    var notificationType = '';
+                    var notificationBody = '';
+
+                    // Special handling of certain activities.
+                    // Falls back to generic handling
+                    if (refItem.type == "Person") {
+                        var userObj = referenceItems[refItem.user_id];
+                        var projectObj = referenceItems[item.project_id];
+
+                        notificationType = 'Person added to Project';
+                        notificationBody = userObj.first_name + ' ' + userObj.last_name + ' was added to ' + projectObj.name;
+                    } else {
+                        notificationType = refItem.type;
+                        notificationBody = refItem.body || refItem.name;
+                    }
+
                     // Meh, let's scope this so I can just use notification for all
                     // of them and they can just quickly reference back to it.
                     // I hate closures. This is nasty.
