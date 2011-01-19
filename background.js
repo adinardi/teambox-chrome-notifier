@@ -97,6 +97,13 @@ TBNotify.processActivityResponse = function(data) {
 
                         notificationType = 'Person added to Project';
                         notificationBody = userObj.first_name + ' ' + userObj.last_name + ' was added to ' + projectObj.name;
+                    } else if (refItem.type == "Comment") {
+                        var commentParent = referenceItems[refItem.target_id];
+                        var projectObj = referenceItems[refItem.project_id];
+
+                        var parentName = commentParent.name ? '"' + commentParent.name + '"' : projectObj.name;
+                        notificationType = 'Comment on ' + parentName;
+                        notificationBody = refItem.body;
                     } else {
                         notificationType = refItem.type;
                         notificationBody = refItem.body || refItem.name;
