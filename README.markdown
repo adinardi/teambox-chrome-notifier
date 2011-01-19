@@ -13,3 +13,18 @@ When new items appear in your activity feed a badge icon with the number of new 
 If you are not logged in to Teambox, the icon will appear deactivated (desaturated). Logging in to Teambox will also activate Teambox Notifier.
 
 This extension *is not* ready for public release yet, but will be shortly. At that time it will be submitted to the Chrome Extension gallery.
+
+Setting up Teambox Chrome Notifier for development
+--------------------------------------------------
+
+In order to contribute to the project, you can set up the notifier in
+Chrome by following these steps:
+
+1. Clone this repository locally.
+2. Open Google Chrome, and then open the Extensions window.
+3. Select Developer Mode in the Extensions window.
+4. Click on "Load unpacked extension" and open the folder with the code.
+
+This extension uses [Google Chrome Extensions](http://code.google.com/chrome/extensions/index.html) and connects to the [Teambox API](http://teambox.com/api). Check the documentation to extend the notifier.
+
+Teambox is an [open-source project management](http://teambox.com) software. You can [find the source code online](http://github.com/teambox/teambox).
