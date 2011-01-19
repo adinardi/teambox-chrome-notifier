@@ -94,8 +94,8 @@ TBNotify.processActivityResponse = function(data) {
                     (function() {
                         var notification = webkitNotifications.createNotification(
                             user.avatar_url,
-                            refItem.type,
-                            refItem.body || refItem.name
+                            notificationType,
+                            notificationBody
                         );
 
                         notification.show();
