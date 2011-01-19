@@ -1,5 +1,8 @@
 var TBNotify = {};
+window.TBNotify = TBNotify;
 
+TBNotify.unreadCount = 0;
+TBNotify.notifications = [];
 TBNotify.lastSeenObjectId = localStorage['lastSeenObjectId'];
 
 /**
@@ -44,7 +47,6 @@ TBNotify.fetchCallback = function() {
  */
 TBNotify.processActivityResponse = function(data) {
     if (data.objects[0] && data.objects[0].id != TBNotify.lastEncounteredObjectId) {
-        var itemsBeforeLast = 0;
         var objects = data.objects;
         var encountered = false;
 
@@ -54,11 +56,23 @@ TBNotify.processActivityResponse = function(data) {
             referenceItems[item.id] = item;
         }
 
-        for (var iter = 0, item; item = objects[iter]; iter++) {
-            if (item.id == TBNotify.lastSeenObjectId) {
-                break;
-            }
+        var unreadCount = 0;
+        var startPos = 0;
 
+        if (TBNotify.lastSeenObjectId) {
+            for (var iter = objects.length - 1, item; item = objects[iter]; iter--) {
+                if (item.id == TBNotify.lastSeenObjectId) {
+                    startPos = iter - 1;
+                    break;
+                }
+            }
+        } else {
+            startPos = objects.length - 1;
+        }
+
+        unreadCount = startPos + 1;
+
+        for (var iter = startPos, item; item = objects[iter]; iter--) {
             if (TBNotify.lastEncounteredObjectId == item.id) {
                 encountered = true;
             }
@@ -88,6 +102,12 @@ TBNotify.processActivityResponse = function(data) {
                         notificationBody = refItem.body || refItem.name;
                     }
 
+                    TBNotify.notifications.push({
+                        img: user.avatar_url,
+                        type: notificationType,
+                        body: notificationBody
+                    });
+
                     // Meh, let's scope this so I can just use notification for all
                     // of them and they can just quickly reference back to it.
                     // I hate closures. This is nasty.
@@ -106,12 +126,10 @@ TBNotify.processActivityResponse = function(data) {
                     })();
                 }
             }
-
-            itemsBeforeLast++;
         }
 
-        if (itemsBeforeLast) {
-            chrome.browserAction.setBadgeText({text: "" + itemsBeforeLast});
+        if (unreadCount) {
+            chrome.browserAction.setBadgeText({text: "" + unreadCount});
         } else {
             chrome.browserAction.setBadgeText({text: ""});
         }
@@ -127,6 +145,10 @@ TBNotify.processActivityResponse = function(data) {
 TBNotify.handleButtonClicked = function() {
     chrome.browserAction.setBadgeText({"text": ""});
     localStorage['lastSeenObjectId'] = TBNotify.lastSeenObjectId = TBNotify.lastEncounteredObjectId;
+};
+
+TBNotify.popupOpened = function() {
+    TBNotify.handleButtonClicked();
 };
 
 chrome.browserAction.onClicked.addListener(TBNotify.handleButtonClicked);
