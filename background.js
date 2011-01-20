@@ -3,7 +3,13 @@ window.TBNotify = TBNotify;
 
 TBNotify.unreadCount = 0;
 TBNotify.notifications = [];
+TBNotify.lastEncounteredObjectId = 0;
 TBNotify.lastSeenObjectId = localStorage['lastSeenObjectId'];
+/**
+ * Ids of items which have been notified.
+ * @type {Array.<number>}
+ */
+TBNotify.notifiedIds = [];
 
 /**
  * Request the activity stream.
@@ -46,9 +52,8 @@ TBNotify.fetchCallback = function() {
  * Update / notify with result.
  */
 TBNotify.processActivityResponse = function(data) {
-    if (data.objects[0] && data.objects[0].id != TBNotify.lastEncounteredObjectId) {
+    if (data.objects[0]) {
         var objects = data.objects;
-        var encountered = false;
 
         // We get a big array of items for reference, index them on their IDs
         var referenceItems = {};
@@ -73,13 +78,8 @@ TBNotify.processActivityResponse = function(data) {
         unreadCount = startPos + 1;
 
         for (var iter = startPos, item; item = objects[iter]; iter--) {
-            if (TBNotify.lastEncounteredObjectId == item.id) {
-                encountered = true;
-            }
-
-            // If we are still before the last encountered / notified item,
-            // then let's notify!
-            if (!encountered) {
+            // See if we've displayed a notification for this item yet.
+            if (TBNotify.notifiedIds.indexOf(item.id) == -1) {
                 var refItem = referenceItems[item.target_id];
                 var user = referenceItems[item.user_id];
 
@@ -131,6 +131,8 @@ TBNotify.processActivityResponse = function(data) {
                             notification.cancel();
                         }, 10000);
                     })();
+
+                    TBNotify.notifiedIds.unshift(item.id);
                 }
             }
         }
@@ -141,8 +143,12 @@ TBNotify.processActivityResponse = function(data) {
             chrome.browserAction.setBadgeText({text: ""});
         }
 
-        // We don't want to re-notify for the same update.
+        // Store so that we can sync this to our last seen when button is pressed
         TBNotify.lastEncounteredObjectId = data.objects[0].id;
+
+
+        // Wipe out any ids past the last 100.
+        TBNotify.notifiedIds.splice(100);
     }
 };
 
