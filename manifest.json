@@ -1,6 +1,6 @@
 {
     "name": "Teambox Notifier",
-    "version": "0.3",
+    "version": "0.4",
     "description": "Teambox Notifier by Angelo DiNardi",
     "browser_action": {
         "default_icon": "icon.png",
@@ -14,5 +14,6 @@
         "notifications"
     ],
     "background_page": "background.html",
-    "options_page": "options.html"
+    "options_page": "options.html",
+    "update_url": "http://adinardi.github.com/teambox-chrome-notifier/updates.xml"
 }
