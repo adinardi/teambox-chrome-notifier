@@ -5,6 +5,11 @@ TBNotify.unreadCount = 0;
 TBNotify.notifications = [];
 TBNotify.lastEncounteredObjectId = 0;
 TBNotify.lastSeenObjectId = localStorage['lastSeenObjectId'];
+
+// Check if the refreshtime is set, otherwise default to 5 minutes
+if (!localStorage['refreshtime']) {
+    localStorage['refreshtime'] = 5;
+}
 /**
  * Ids of items which have been notified.
  * @type {Array.<number>}
@@ -164,9 +169,13 @@ TBNotify.popupOpened = function() {
     TBNotify.handleButtonClicked();
 };
 
+TBNotify.refresh = function() {
+    TBNotify.fetchActivity();
+
+    window.setTimeout(TBNotify.refresh, 60000 * parseInt(localStorage['refreshtime'], 10));
+};
+
 chrome.browserAction.onClicked.addListener(TBNotify.handleButtonClicked);
 
-// Initial load fetch.
-TBNotify.fetchActivity();
-// Update every 30 seconds.
-window.setInterval(TBNotify.fetchActivity, 60000);
+// Start loading
+TBNotify.refresh();

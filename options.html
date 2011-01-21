@@ -5,21 +5,17 @@
     <body onload="load()">
         <script>
             function save() {
-                localStorage['username'] = document.getElementById('username').value;
-                localStorage['password'] = document.getElementById('password').value;
+                localStorage['refreshtime'] = document.getElementById('refreshtime').value;
 
                 alert('Saved');
             }
 
             function load() {
-                document.getElementById('username').value = localStorage['username'];
-                document.getElementById('password').value = localStorage['password'];
+                document.getElementById('refreshtime').value = localStorage['refreshtime'];
             }
         </script>
 
-        Username: <input type="text" id="username" />
-        <br>
-        Password: <input type="password" id="password" />
+        Refresh Time (minutes): <input type="text" id="refreshtime" />
         <br>
         <button onclick="save()">Save</button>
     </body>
