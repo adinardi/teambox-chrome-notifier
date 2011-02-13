@@ -8,7 +8,7 @@ TBNotify.lastSeenObjectId = localStorage['lastSeenObjectId'];
 
 // Check if the refreshtime is set, otherwise default to 5 minutes
 if (!localStorage['refreshtime']) {
-    localStorage['refreshtime'] = 5;
+    localStorage['refreshtime'] = 2;
 }
 /**
  * Ids of items which have been notified.
