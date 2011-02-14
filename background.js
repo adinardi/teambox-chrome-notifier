@@ -59,6 +59,7 @@ TBNotify.fetchCallback = function() {
 TBNotify.processActivityResponse = function(data) {
     if (data.objects[0]) {
         var objects = data.objects;
+        var showNotifications = true;
 
         // We get a big array of items for reference, index them on their IDs
         var referenceItems = {};
@@ -78,6 +79,7 @@ TBNotify.processActivityResponse = function(data) {
             }
         } else {
             startPos = objects.length - 1;
+            showNotifications = false;
         }
 
         unreadCount = startPos + 1;
@@ -87,55 +89,75 @@ TBNotify.processActivityResponse = function(data) {
             if (TBNotify.notifiedIds.indexOf(item.id) == -1) {
                 var refItem = referenceItems[item.target_id];
                 var user = referenceItems[item.user_id];
+                var project = referenceItems[item.project_id];
 
                 // We found the reference item, hooray!
                 if (refItem) {
 
+                    var showItem = true;
+
                     var notificationType = '';
                     var notificationBody = '';
+                    var notificationAction = project.name + ': ' + TBNotify.getActionVerb(item.action) + ' ' + refItem.type + (refItem.target_type ? ' on ' + refItem.target_type : '') + ' by ' + user.first_name + ' ' + user.last_name;
 
                     // Special handling of certain activities.
                     // Falls back to generic handling
-                    if (refItem.type == "Person") {
-                        var userObj = referenceItems[refItem.user_id];
-                        var projectObj = referenceItems[item.project_id];
+                    //if (refItem.type == "Person") {
+                        //var userObj = referenceItems[refItem.user_id];
+                        //var projectObj = referenceItems[item.project_id];
 
-                        notificationType = 'Person added to Project';
-                        notificationBody = userObj.first_name + ' ' + userObj.last_name + ' was added to ' + projectObj.name;
-                    } else if (refItem.type == "Comment") {
-                        var commentParent = referenceItems[refItem.target_id];
-                        var projectObj = referenceItems[refItem.project_id];
+                        //notificationType = 'Person added to Project';
+                        //notificationBody = userObj.first_name + ' ' + userObj.last_name + ' was added to ' + projectObj.name;
+                    //} else if (refItem.type == "Comment") {
+                        //var commentParent = referenceItems[refItem.target_id];
+                        //var projectObj = referenceItems[refItem.project_id];
 
-                        var parentName = commentParent.name ? '"' + commentParent.name + '"' : projectObj.name;
-                        notificationType = 'Comment on ' + parentName;
-                        notificationBody = refItem.body;
-                    } else {
-                        notificationType = refItem.type;
-                        notificationBody = refItem.body || refItem.name;
+                        //var parentName = commentParent.name ? '"' + commentParent.name + '"' : projectObj.name;
+                        //notificationType = 'Comment on ' + parentName;
+                        //notificationBody = refItem.body;
+                    //} else {
+                        //notificationType = refItem.type;
+                        //notificationBody = refItem.body || refItem.name;
+                    //}
+
+                    notificationBody = refItem.body || refItem.name;
+
+                    switch (refItem.type) {
+                        case 'Conversation':
+                            // Check if a conversation is a "simple" one (activity feed only).
+                            // If so, don't show the conversation as a notification
+                            if (refItem.simple == true) {
+                                showItem = false;
+                            }
+                            break;
                     }
 
-                    TBNotify.notifications.push({
-                        img: user.avatar_url,
-                        type: notificationType,
-                        body: notificationBody
-                    });
+                    if (showItem) {
+                        TBNotify.notifications.push({
+                            img: user.avatar_url,
+                            type: notificationAction,
+                            body: notificationBody
+                        });
 
-                    // Meh, let's scope this so I can just use notification for all
-                    // of them and they can just quickly reference back to it.
-                    // I hate closures. This is nasty.
-                    (function() {
-                        var notification = webkitNotifications.createNotification(
-                            user.avatar_url,
-                            notificationType,
-                            notificationBody
-                        );
+                        if (showNotifications) {
+                            // Meh, let's scope this so I can just use notification for all
+                            // of them and they can just quickly reference back to it.
+                            // I hate closures. This is nasty.
+                            (function() {
+                                var notification = webkitNotifications.createNotification(
+                                    user.avatar_url,
+                                    notificationAction,
+                                    notificationBody
+                                );
 
-                        notification.show();
+                                notification.show();
 
-                        setTimeout(function() {
-                            notification.cancel();
-                        }, 10000);
-                    })();
+                                setTimeout(function() {
+                                    notification.cancel();
+                                }, 10000);
+                            })();
+                        }
+                    }
 
                     TBNotify.notifiedIds.unshift(item.id);
                 }
@@ -156,6 +178,21 @@ TBNotify.processActivityResponse = function(data) {
         TBNotify.notifiedIds.splice(100);
     }
 };
+
+TBNotify.getActionVerb = function(action) {
+    switch (action) {
+        case 'create':
+            return 'New';
+            break;
+
+        case 'edit':
+            return 'Updated';
+            break;
+
+        default:
+            return action;
+    }
+}
 
 /**
  * Handler for when the user clicks on the icon in the bar.
