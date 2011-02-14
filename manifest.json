@@ -15,5 +15,8 @@
     ],
     "background_page": "background.html",
     "options_page": "options.html",
-    "update_url": "http://adinardi.github.com/teambox-chrome-notifier/updates.xml"
+    "icons": {
+        "48": "icon_48.png",
+        "128": "icon_128.png"
+    }
 }
