@@ -16,7 +16,7 @@ If you are not logged in to Teambox, the icon will appear deactivated (desaturat
 
 Just get the extension
 ----------------------
-This extension is available on the Chrome Extension Gallery at the [Teambox Notifier](https://chrome.google.com/extensions/developer/edit/blfkecebibijeelilkopkpjciolpllka) page.
+This extension is available on the Chrome Extension Gallery at the [Teambox Notifier](https://chrome.google.com/extensions/detail/blfkecebibijeelilkopkpjciolpllka) page.
 
 Setting up Teambox Chrome Notifier for development
 --------------------------------------------------
