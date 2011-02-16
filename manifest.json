@@ -10,6 +10,8 @@
     "permissions": [
         "http://teambox.com/",
         "https://teambox.com/",
+        "http://*/api/1/*",
+        "https://*/api/1/*",
         "cookies",
         "notifications"
     ],

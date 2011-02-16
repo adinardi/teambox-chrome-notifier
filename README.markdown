@@ -18,6 +18,10 @@ Just get the extension
 ----------------------
 This extension is available on the Chrome Extension Gallery at the [Teambox Notifier](https://chrome.google.com/extensions/detail/blfkecebibijeelilkopkpjciolpllka) page.
 
+Locally hosted Teambox Installs
+-------------------------------
+The extension supports local Teambox installs. Install the extension, open the options, and enter the hostname where your teambox install is located.
+
 Setting up Teambox Chrome Notifier for development
 --------------------------------------------------
 
