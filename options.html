@@ -4,18 +4,41 @@
     </head>
     <body onload="load()">
         <script>
+            // Load in our main runner from the background page
+            var TBNotify = chrome.extension.getBackgroundPage().TBNotify;
+
             function save() {
                 localStorage['refreshtime'] = document.getElementById('refreshtime').value;
 
+                // See if this is set to the default, if so, don't actually store the value
+                if (localStorage['refreshtime'] == TBNotify.defaultSettings.refreshtime) {
+                    localStorage.removeItem('refreshtime');
+                }
+
+                // Save apihost
+                localStorage['apihost'] = document.getElementById('apihost').value;
+                if (localStorage['apihost'] == TBNotify.defaultSettings.apihost) {
+                    localStorage.removeItem('apihost');
+                }
+
+                // Tell the system to reload the settings
+                TBNotify.updateSettings();
+
+                // Update the UI to reflect the new settings (possibly fill in defaults)
+                load();
                 alert('Saved');
             }
 
             function load() {
-                document.getElementById('refreshtime').value = localStorage['refreshtime'];
+                document.getElementById('refreshtime').value = TBNotify.settings.refreshtime;
+                document.getElementById('apihost').value = TBNotify.settings.apihost;
             }
         </script>
 
+        <!-- UGLY INTERFACE (TODO: FIX ME) -->
         Refresh Time (minutes): <input type="text" id="refreshtime" />
+        <br>
+        API Hostname: <input type="text" id="apihost" /> (default: "http://teambox.com")
         <br>
         <button onclick="save()">Save</button>
     </body>

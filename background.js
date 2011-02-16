@@ -1,15 +1,36 @@
 var TBNotify = {};
 window.TBNotify = TBNotify;
 
+/**
+ * Default settings
+ * @const
+ * @type {Object.<string, id>}
+ */
+TBNotify.defaultSettings = {};
+TBNotify.defaultSettings.refreshtime = 2;
+TBNotify.defaultSettings.apihost = 'https://teambox.com';
+
+/**
+ * Current running settings.
+ * @type {Object.<string, id}
+ */
+TBNotify.settings = {};
+
+// Some system state
 TBNotify.unreadCount = 0;
 TBNotify.notifications = [];
 TBNotify.lastEncounteredObjectId = 0;
 TBNotify.lastSeenObjectId = localStorage['lastSeenObjectId'];
 
-// Check if the refreshtime is set, otherwise default to 5 minutes
-if (!localStorage['refreshtime']) {
-    localStorage['refreshtime'] = 2;
-}
+
+/**
+ * Update the current running settings to be the user given setting or the default.
+ */
+TBNotify.updateSettings = function() {
+    TBNotify.settings.refreshtime = localStorage['refreshtime'] || TBNotify.defaultSettings.refreshtime;
+    TBNotify.settings.apihost = localStorage['apihost'] || TBNotify.defaultSettings.apihost;
+};
+
 /**
  * Ids of items which have been notified.
  * @type {Array.<number>}
@@ -23,7 +44,7 @@ TBNotify.notifiedIds = [];
 TBNotify.fetchActivity = function() {
     var xhr = new XMLHttpRequest();
 
-    xhr.open("GET", "https://teambox.com/api/1/activities");
+    xhr.open("GET", TBNotify.settings.apihost + "/api/1/activities");
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
@@ -46,10 +67,6 @@ TBNotify.fetchActivity = function() {
     };
 
     xhr.send();
-};
-
-TBNotify.fetchCallback = function() {
-
 };
 
 /**
@@ -209,8 +226,11 @@ TBNotify.popupOpened = function() {
 TBNotify.refresh = function() {
     TBNotify.fetchActivity();
 
-    window.setTimeout(TBNotify.refresh, 60000 * parseInt(localStorage['refreshtime'], 10));
+    window.setTimeout(TBNotify.refresh, 60000 * parseInt(TBNotify.settings.refreshtime, 10));
 };
+
+// Immediately initialize our settings
+TBNotify.updateSettings();
 
 chrome.browserAction.onClicked.addListener(TBNotify.handleButtonClicked);
 
