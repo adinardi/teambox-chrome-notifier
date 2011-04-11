@@ -1,6 +1,14 @@
 <html>
     <head>
         <style>
+
+            body {
+                font-family: Helvetica;
+                width: 400px;
+                overflow-x: hidden;
+                margin-right: 23px;
+            }
+
             .notification-image {
                 float: left;
                 margin-right: 3px;
@@ -9,26 +17,45 @@
 
             .notification-type {
                 font-weight: bold;
+                padding-top: 5px;
+                padding-bottom: 5px;
             }
 
             .notification-content {
-
+                padding-bottom: 5px;
+                /* Keep from wrapping around the 48px + 3px margin thumbail */
+                padding-left: 51px;
             }
 
             .notification-wrapper {
                 background-color: #eee;
                 margin-top: 5px;
                 margin-bottom: 5px;
-                font-family: Helvetica;
                 font-size: 12px;
                 clear: both;
                 min-height: 48px;
                 -webkit-border-radius: 10px;
+                padding-right: 5px;
+            }
+
+            .notification-clear-button {
+                float: right;
+            }
+
+            a {
+                font-size: 13px;
+            }
+
+            a:visited {
+                color: blue;
             }
         </style>
     </head>
     <body style="min-width: 400px;">
-        <button onclick="TBNPopup.clearButtonClick()">Clear Notifications</button>
+        <div>
+            <a target="_blank" href="http://teambox.com/projects/">Recent activity</a>
+            <button class="notification-clear-button" onclick="TBNPopup.clearButtonClick()">Clear Notifications</button>
+        </div>
         <div id="content">
 
         </div>
