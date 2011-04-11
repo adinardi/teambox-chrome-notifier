@@ -1,6 +1,8 @@
 var TBNotify = {};
 window.TBNotify = TBNotify;
 
+TBNotify.models = {};
+
 /**
  * Default settings
  * @const
@@ -75,6 +77,10 @@ TBNotify.fetchActivity = function() {
  */
 TBNotify.processActivityResponse = function(data) {
     if (data.objects[0]) {
+        var list = Object.create(TBNotify.models.List);
+        list.load(data);
+        console.log('data', data, list);
+
         var objects = data.objects;
         var showNotifications = true;
 
