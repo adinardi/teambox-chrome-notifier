@@ -1,0 +1,115 @@
+<mockup version="1.0" skin="sketch" measuredW="733" measuredH="375" mockupW="329" mockupH="326">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Tooltip" x="404" y="49" w="329" h="326" measuredW="35" measuredH="375" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+        <tooltipDirection>NE</tooltipDirection>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Button" x="414" y="69" w="-1" h="-1" measuredW="135" measuredH="28" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Clear%20Notifications</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Icon" x="414" y="112" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <icon>ContactIcon%7Clarge</icon>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="462" y="112" w="-1" h="-1" measuredW="178" measuredH="23" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Angelo%20DiNardi%20did%20something</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="462" y="135" w="-1" h="-1" measuredW="90" measuredH="23" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <text>Blah%20blah%20blah</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Icon" x="414" y="160" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <icon>ContactIcon%7Clarge</icon>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="462" y="160" w="-1" h="-1" measuredW="178" measuredH="23" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Angelo%20DiNardi%20did%20something</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="462" y="183" w="-1" h="-1" measuredW="90" measuredH="23" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <text>Blah%20blah%20blah</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Icon" x="414" y="208" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <icon>ContactIcon%7Clarge</icon>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="462" y="208" w="-1" h="-1" measuredW="178" measuredH="23" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Angelo%20DiNardi%20did%20something</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="462" y="231" w="-1" h="-1" measuredW="90" measuredH="23" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <text>Blah%20blah%20blah</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::Icon" x="414" y="257" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <icon>ContactIcon%7Clarge</icon>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::Label" x="462" y="257" w="-1" h="-1" measuredW="178" measuredH="23" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Angelo%20DiNardi%20did%20something</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="462" y="280" w="-1" h="-1" measuredW="90" measuredH="23" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <text>Blah%20blah%20blah</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::Icon" x="414" y="305" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <icon>ContactIcon%7Clarge</icon>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::Label" x="462" y="305" w="-1" h="-1" measuredW="178" measuredH="23" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Angelo%20DiNardi%20did%20something</text>
+        <textOrientation>right</textOrientation>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::Label" x="462" y="328" w="-1" h="-1" measuredW="90" measuredH="23" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <text>Blah%20blah%20blah</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
