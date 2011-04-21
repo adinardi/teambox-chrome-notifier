@@ -22,7 +22,10 @@ TBNPopup.renderNotification = function(props) {
     img.className = 'notification-image';
 
     var type = document.createElement('a');
-    type.href = "lol";
+    if(props.url) {
+      type.href = props.url;
+      type.target = "_blank";
+    }
     type.innerHTML = props.type;
     type.className = 'notification-type';
 

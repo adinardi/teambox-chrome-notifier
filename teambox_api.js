@@ -31,18 +31,20 @@ _.parseFromAPI = function(json) {
     // Insert a method to generate URLs for this item
     e.url = function() {
       switch(this.type) {
+        case "Comment":
+          return this.target.url();
         case "Conversation":
-          return "#!/projects/"+this.project.permalink+"/conversations/"+this.id;
+          return "/projects/"+this.project.permalink+"/conversations/"+this.id;
         case "Task":
-          return "#!/projects/"+this.project.permalink+"/tasks/"+this.id;
+          return "/projects/"+this.project.permalink+"/tasks/"+this.id;
         case "TaskList":
-          return "#!/projects/"+this.project.permalink+"/task_lists/"+this.id;
+          return "/projects/"+this.project.permalink+"/task_lists/"+this.id;
         case "Page":
-          return "#!/projects/"+this.project.permalink+"/pages/"+this.id;
+          return "/projects/"+this.project.permalink+"/pages/"+this.id;
         case "Project":
-          return "#!/projects/"+this.permalink;
+          return "/projects/"+this.permalink;
         case "User":
-          return "#!/users/"+this.username;
+          return "/users/"+this.username;
         default:
           console.log("Didn't implement URL for "+this.type+". Object: "+this);
           return "#!/wip";

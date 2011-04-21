@@ -108,6 +108,7 @@ TBNotify.processActivityResponse = function(objects) {
         var notificationType = '';
         var notificationBody = '';
         var notificationAction = item.project.name + ': ' + item.target.name;
+        var notificationURL = item.target.url();
 
         notificationBody = item.target.body_html || item.target.body || item.target.name;
 
@@ -121,9 +122,11 @@ TBNotify.processActivityResponse = function(objects) {
             } else {
               notificationAction = item.project.name + ': ' + item.target.target.name;
             }
+            notificationURL = item.target.target.url();
             break;
           case 'Task':
             notificationAction = item.project.name + ': ' + item.target.target.name;
+            notificationURL = item.target.target.url();
             break;
         }
 
@@ -131,7 +134,8 @@ TBNotify.processActivityResponse = function(objects) {
           TBNotify.notifications.push({
             img: item.user.avatar_url,
             type: notificationAction,
-            body: notificationBody
+            body: notificationBody,
+            url: TBNotify.settings.apihost + notificationURL
           });
 
           if (showNotifications) {
