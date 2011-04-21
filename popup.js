@@ -8,10 +8,9 @@ TBNPopup.init = function() {
     TBNPopup.contentContainer = document.getElementById('content');
 
     var notifications = TBNotify.notifications;
-
-    for (var iter = 0, item; item = notifications[iter]; iter++) {
-        TBNPopup.renderNotification(item);
-    }
+    _(notifications).each(function(item) {
+          TBNPopup.renderNotification(item);
+    });
 };
 
 TBNPopup.renderNotification = function(props) {
@@ -22,8 +21,8 @@ TBNPopup.renderNotification = function(props) {
     img.src = props.img;
     img.className = 'notification-image';
 
-    var type = document.createElement('div');
-    type.style.fontWeight = 'bold';
+    var type = document.createElement('a');
+    type.href = "lol";
     type.innerHTML = props.type;
     type.className = 'notification-type';
 

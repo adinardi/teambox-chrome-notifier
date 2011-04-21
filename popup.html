@@ -10,32 +10,36 @@
             }
 
             .notification-image {
-                float: left;
-                margin-right: 3px;
-                -webkit-border-radius: 10px 10px;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                -webkit-border-radius: 5px;
             }
 
             .notification-type {
                 font-weight: bold;
-                padding-top: 5px;
-                padding-bottom: 5px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                display: block;
+                color: black
             }
 
             .notification-content {
-                padding-bottom: 5px;
                 /* Keep from wrapping around the 48px + 3px margin thumbail */
-                padding-left: 51px;
+            }
+
+            .notification-content p {
+              margin: 7px 0;
             }
 
             .notification-wrapper {
-                background-color: #eee;
-                margin-top: 5px;
-                margin-bottom: 5px;
                 font-size: 12px;
-                clear: both;
+                position: relative;
                 min-height: 48px;
-                -webkit-border-radius: 10px;
-                padding-right: 5px;
+                margin-top: 15px;
+                margin-bottom: 25px;
+                margin-right: 5px;
+                padding-left: 60px;
             }
 
             .notification-clear-button {
@@ -49,16 +53,28 @@
             a:visited {
                 color: blue;
             }
+
+            ::-webkit-scrollbar {
+              width: 9px;
+              height: 9px;
+              background-color: white;
+            }
+
+            ::-webkit-scrollbar-thumb:vertical {
+              height: 5px;
+              background-color: #999;
+              -webkit-border-radius: 8px;
+            }
         </style>
     </head>
     <body style="min-width: 400px;">
         <div>
-            <a target="_blank" href="http://teambox.com/projects/">Recent activity</a>
+            <a target="_blank" href="http://teambox.com/projects/">Go to my Recent activity</a>
             <button class="notification-clear-button" onclick="TBNPopup.clearButtonClick()">Clear Notifications</button>
         </div>
-        <div id="content">
-
-        </div>
+        <div id="content"></div>
+        <script src="underscore-min.js"></script>
+        <script src="teambox_api.js"></script>
         <script src="popup.js"></script>
     </body>
 </html>
