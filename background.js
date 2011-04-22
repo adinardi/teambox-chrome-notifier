@@ -20,7 +20,7 @@ TBNotify.settings = {};
 TBNotify.unreadCount = 0;
 TBNotify.notifications = [];
 TBNotify.lastEncounteredObjectId = 0;
-TBNotify.lastSeenObjectId = 0; //localStorage.lastSeenObjectId;
+TBNotify.lastSeenObjectId = localStorage.lastSeenObjectId;
 
 
 /**
@@ -107,10 +107,12 @@ TBNotify.processActivityResponse = function(objects) {
 
         var notificationType = '';
         var notificationBody = '';
+        var notificationBodyHtml; // will default to the body
         var notificationAction = item.project.name + ': ' + item.target.name;
         var notificationURL = item.target.url();
 
-        notificationBody = item.target.body_html || item.target.body || item.target.name;
+        notificationBodyHtml = item.target.body_html || item.target.body || item.target.name;
+        notificationBody = item.target.body || item.target.name;
 
         switch (item.target.target_type) {
           case 'Conversation':
@@ -135,6 +137,7 @@ TBNotify.processActivityResponse = function(objects) {
             img: item.user.avatar_url,
             type: notificationAction,
             body: notificationBody,
+            bodyHtml: notificationBodyHtml || notificationBody,
             url: TBNotify.settings.apihost + notificationURL
           });
 
