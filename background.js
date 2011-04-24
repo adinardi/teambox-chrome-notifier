@@ -127,6 +127,15 @@ TBNotify.processActivityResponse = function(objects) {
                     case 'Task':
                         notificationAction = item.project.name + ': [' + item.target.target.type + '] ' + item.target.target.name;
                         notificationURL = item.target.target.url();
+
+                        // It appears this means a task was changed or commented on in some way
+                        if (item.target.type == 'Comment') {
+                            // If there's no body (a non text comment change, probably assignment or due date, etc).
+                            if (!notificationBody) {
+                                // This is shitty and we should try and tell the user what actually happened, if possible.
+                                notificationBody = 'Updated Task...';
+                            }
+                        }
                         break;
                 }
 
