@@ -103,10 +103,9 @@ TBNotify.processActivityResponse = function(objects) {
 
                 var showItem = true;
 
-                var notificationType = '';
                 var notificationBody = '';
                 var notificationBodyHtml; // will default to the body
-                var notificationAction = item.project.name + ': ' + item.target.name;
+                var notificationAction = item.project.name + ': [' + item.target.type + '] ' + item.target.name;
                 var notificationURL = item.target.url();
 
                 notificationBodyHtml = item.target.body_html || item.target.body || item.target.name;
@@ -117,15 +116,16 @@ TBNotify.processActivityResponse = function(objects) {
                         // Check if a conversation is a "simple" one (activity feed only).
                         // If so, don't show the conversation as a notification
                         if (item.target.simple === true) {
+                            // We never show this, since, it's a useless item to an end user
                             showItem = false;
                             notificationAction = item.project.name + ' conversation';
                         } else {
-                            notificationAction = item.project.name + ': ' + item.target.target.name;
+                            notificationAction = item.project.name + ': [' + item.target.target.type + '] ' + item.target.target.name;
                         }
                         notificationURL = item.target.target.url();
                         break;
                     case 'Task':
-                        notificationAction = item.project.name + ': ' + item.target.target.name;
+                        notificationAction = item.project.name + ': [' + item.target.target.type + '] ' + item.target.target.name;
                         notificationURL = item.target.target.url();
                         break;
                 }
