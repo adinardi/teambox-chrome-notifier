@@ -93,8 +93,6 @@ TBNotify.processActivityResponse = function(objects) {
         showNotifications = false;
     }
 
-    unreadCount = startPos + 1;
-
     // For each activity...
     _(objects).chain().reverse().each(function (item) {
         // See if we've displayed a notification for this item yet.
@@ -133,6 +131,8 @@ TBNotify.processActivityResponse = function(objects) {
                 }
 
                 if (showItem) {
+                    unreadCount++;
+
                     TBNotify.notifications.push({
                         img: item.user.avatar_url,
                         type: notificationAction,
