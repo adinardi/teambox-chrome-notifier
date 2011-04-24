@@ -45,6 +45,13 @@ _.parseFromAPI = function(json) {
           return "/projects/"+this.permalink;
         case "User":
           return "/users/"+this.username;
+        case "Note":
+          if (this.page) {
+            return this.page.url();
+          } else {
+              // Apparently we won't always have the page, so generate a page link from the ID
+              return "/projects/"+this.project.permalink+"/pages/"+this.page_id;
+          }
         default:
           console.log("Didn't implement URL for "+this.type+". Object: "+this);
           return "#!/wip";
