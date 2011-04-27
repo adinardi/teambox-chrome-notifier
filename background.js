@@ -175,8 +175,10 @@ TBNotify.processActivityResponse = function(objects) {
         }
     });
 
-    if (unreadCount) {
-        chrome.browserAction.setBadgeText({text: "" + unreadCount});
+    TBNotify.unreadCount += unreadCount;
+
+    if (TBNotify.unreadCount) {
+        chrome.browserAction.setBadgeText({text: "" + TBNotify.unreadCount});
     } else {
         chrome.browserAction.setBadgeText({text: ""});
     }
@@ -202,6 +204,7 @@ TBNotify.getActionVerb = function(action) {
 TBNotify.handleButtonClicked = function() {
     chrome.browserAction.setBadgeText({"text": ""});
     localStorage.lastSeenObjectId = TBNotify.lastSeenObjectId = TBNotify.lastEncounteredObjectId;
+    TBNotify.unreadCount = 0;
 };
 
 TBNotify.popupOpened = function() {
