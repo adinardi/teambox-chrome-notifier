@@ -61,6 +61,8 @@ TBNotify.fetchActivity = function() {
             chrome.browserAction.setTitle({title: 'Teambox Notifier'});
 
             var response = _.parseFromAPI(JSON.parse(xhr.responseText));
+            // Load my user id from API headers
+            response.my_user_id = xhr.getResponseHeader("X-User-id");
 
             TBNotify.processActivityResponse(response);
         }
@@ -96,7 +98,7 @@ TBNotify.processActivityResponse = function(objects) {
     // For each activity...
     _(objects).chain().reverse().each(function (item) {
         // See if we've displayed a notification for this item yet.
-        if (TBNotify.notifiedIds.indexOf(item.id) == -1) {
+        if (TBNotify.notifiedIds.indexOf(item.id) === -1 && item.my_user_id !== item.user_id) {
 
             // We found the targeted item by the activity, hooray!
             if (item.target) {
