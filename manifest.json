@@ -1,6 +1,6 @@
 {
     "name": "Teambox Notifier",
-    "version": "0.9.1",
+    "version": "0.9.2",
     "description": "Teambox Notifier by Angelo DiNardi",
     "browser_action": {
         "default_icon": "icon.png",
@@ -10,10 +10,16 @@
     "permissions": [
         "http://teambox.com/",
         "https://teambox.com/",
+        "http://beta.teambox.com/",
+        "https://beta.teambox.com/",
         "http://*/api/1/*",
         "https://*/api/1/*",
         "cookies",
-        "notifications"
+        "notifications",
+        "unlimitedStorage",
+        "notifications",
+        "geolocation",
+        "background"
     ],
     "background_page": "background.html",
     "options_page": "options.html",
